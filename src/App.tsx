@@ -337,9 +337,12 @@ function NumberField({
             if (isNaN(rawVal)) {
               onChange(min);
             } else {
-              // Prevents negative numbers or values below min
-              const clampedVal = Math.max(min, rawVal);
-              onChange(max !== undefined ? Math.min(max, clampedVal) : clampedVal);
+              // Clamps value between min and max
+              let clampedVal = Math.max(min, rawVal);
+              if (max !== undefined) {
+                clampedVal = Math.min(max, clampedVal);
+              }
+              onChange(clampedVal);
             }
           }}
           className="w-full px-3 py-2 text-[15px] font-mono text-[#2B2A1F] outline-none bg-transparent"
@@ -504,12 +507,17 @@ function SetupStep({
           />
           <NumberField
             label="Moisture content"
-            suffix="%"
             value={draft.rice.moisturePct}
-            max={95}
-            step={0.5}
-            onChange={(v) => setDraft((d) => ({ ...d, rice: { ...d.rice, moisturePct: v } }))}
-          />
+            onChange={(v) =>
+            setDraft({
+            ...draft,
+            rice: { ...draft.rice, moisturePct: v },
+          })
+          }
+          suffix="%"
+        min={0}
+        max={95}
+        />
         </div>
       </Card>
 
@@ -525,13 +533,16 @@ function SetupStep({
           />
           <NumberField
             label="Moisture content"
-            suffix="%"
-            value={draft.coconut.moisturePct}
-            max={95}
-            step={0.5}
+            value={draft.rice.moisturePct}
             onChange={(v) =>
-              setDraft((d) => ({ ...d, coconut: { ...d.coconut, moisturePct: v } }))
-            }
+            setDraft({
+            ...draft,
+            rice: { ...draft.rice, moisturePct: v },
+          })
+          }
+          suffix="%"
+        min={0}
+        max={95}
           />
         </div>
       </Card>
