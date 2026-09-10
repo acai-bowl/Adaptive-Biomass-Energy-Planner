@@ -503,21 +503,17 @@ function SetupStep({
             suffix="kg wet"
             value={draft.rice.massWetKg}
             step={0.5}
+            min={0}
             onChange={(v) => setDraft((d) => ({ ...d, rice: { ...d.rice, massWetKg: v } }))}
           />
           <NumberField
             label="Moisture content"
+            suffix="%"
             value={draft.rice.moisturePct}
-            onChange={(v) =>
-            setDraft({
-            ...draft,
-            rice: { ...draft.rice, moisturePct: v },
-          })
-          }
-          suffix="%"
-        min={0}
-        max={95}
-        />
+            min={0}
+            max={95}
+            onChange={(v) => setDraft((d) => ({ ...d, rice: { ...d.rice, moisturePct: v } }))}
+          />
         </div>
       </Card>
 
@@ -529,20 +525,16 @@ function SetupStep({
             suffix="kg wet"
             value={draft.coconut.massWetKg}
             step={0.5}
+            min={0}
             onChange={(v) => setDraft((d) => ({ ...d, coconut: { ...d.coconut, massWetKg: v } }))}
           />
           <NumberField
             label="Moisture content"
+            suffix="%"
             value={draft.coconut.moisturePct}
-            onChange={(v) =>
-            setDraft({
-            ...draft,
-            rice: { ...draft.rice, moisturePct: v },
-          })
-          }
-          suffix="%"
-        min={0}
-        max={95}
+            min={0}
+            max={95}
+            onChange={(v) => setDraft((d) => ({ ...d, coconut: { ...d.coconut, moisturePct: v } }))}
           />
         </div>
       </Card>
@@ -555,6 +547,7 @@ function SetupStep({
             suffix="kW"
             value={draft.loadKw}
             step={0.05}
+            min={0}
             onChange={(v) => setDraft((d) => ({ ...d, loadKw: v }))}
           />
           <NumberField
@@ -562,6 +555,7 @@ function SetupStep({
             suffix="hours"
             value={draft.runtimeHours}
             step={0.5}
+            min={0}
             onChange={(v) => setDraft((d) => ({ ...d, runtimeHours: v }))}
           />
         </div>
@@ -580,7 +574,7 @@ function SetupStep({
             max={50}
             step={1}
             value={draft.reservePct}
-            onChange={(e) => setDraft((d) => ({ ...d, reservePct: parseFloat(e.target.value) }))}
+            onChange={(e) => setDraft((d) => ({ ...d, reservePct: parseFloat(e.target.value) || 0 }))}
             className="mt-3 w-full accent-[#5C6B47]"
           />
           <p className="mt-2 text-xs leading-relaxed text-[#8A886E]">
