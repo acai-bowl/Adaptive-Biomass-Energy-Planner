@@ -332,7 +332,16 @@ function NumberField({
           min={min}
           max={max}
           step={step}
-          onChange={(e) => onChange(parseFloat(e.target.value) || 0)}
+          onChange={(e) => {
+            const rawVal = parseFloat(e.target.value);
+            if (isNaN(rawVal)) {
+              onChange(min);
+            } else {
+              // Prevents negative numbers or values below min
+              const clampedVal = Math.max(min, rawVal);
+              onChange(max !== undefined ? Math.min(max, clampedVal) : clampedVal);
+            }
+          }}
           className="w-full px-3 py-2 text-[15px] font-mono text-[#2B2A1F] outline-none bg-transparent"
         />
         {suffix && (
