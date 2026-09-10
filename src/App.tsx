@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Wheat,
   Palmtree,
@@ -370,6 +370,10 @@ export default function App() {
   const [draft, setDraft] = useState<PlannerInputs>(DEFAULT_INPUTS);
   const [submitted, setSubmitted] = useState<PlannerInputs | null>(null);
   const [step, setStep] = useState<StepId>(1);
+
+  useEffect(() => {
+    document.title = "Adaptive Biomass Energy Planner";
+  }, []);
 
   const result = useMemo(() => (submitted ? optimize(submitted) : null), [submitted]);
 
