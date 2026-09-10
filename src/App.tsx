@@ -533,7 +533,7 @@ function SetupStep({
           />
           <NumberField
             label="Moisture content"
-            value={draft.rice.moisturePct}
+            value={draft.coconut.moisturePct}
             onChange={(v) =>
             setDraft({
             ...draft,
