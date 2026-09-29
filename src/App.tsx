@@ -847,6 +847,9 @@ function PillarCard({
 function AnalysisStep({ result, inputs }: { result: OptimizationResult; inputs: PlannerInputs }) {
   const targetX = result.recommended?.xCoconut ?? result.fallback?.xCoconut ?? null;
 
+  // 1. Define slagging risk threshold (e.g., Rice Husk share > 70%, so Coconut share < 0.30)
+  const SLAGGING_RICE_THRESHOLD = 0.70; 
+
   // Standard step checkpoints
   let displayFractions = [0, 0.25, 0.5, 0.75, 1.0];
 
@@ -864,7 +867,7 @@ function AnalysisStep({ result, inputs }: { result: OptimizationResult; inputs: 
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <PillarCard icon={<Zap size={16} />} title="Energy density">
           Blend LHV rises from {fmt(RICE_LHV_DRY, 2)} MJ/kg (rice husk) to{" "}
           {fmt(COCONUT_LHV_DRY, 2)} MJ/kg (coconut shell). Higher coconut share reaches the
@@ -879,6 +882,10 @@ function AnalysisStep({ result, inputs }: { result: OptimizationResult; inputs: 
           Wet mass beyond the dry basis has to be evaporated before it burns, at{" "}
           {fmt(H_VAP, 2)} MJ per kg of water. That penalty is subtracted from LHV before any
           yield is credited to the blend.
+        </PillarCard>
+        <PillarCard icon={<AlertTriangle size={16} />} title="Slagging risk">
+        Blends with over {fmt(SLAGGING_RICE_THRESHOLD * 100, 0)}% rice husk carry high ash/silica 
+        clinkering risk. Higher coconut fraction lowers grate fouling and maintainability issues.
         </PillarCard>
       </div>
 
@@ -920,17 +927,26 @@ function AnalysisStep({ result, inputs }: { result: OptimizationResult; inputs: 
                       {isFinite(c.requiredTotalWetKg) ? `${fmt(c.requiredTotalWetKg, 1)} kg` : "—"}
                     </td>
                     <td className="py-2.5">
-                      {c.moistureBlocked ? (
-                        <span className="text-[#95591A]">Blocked by moisture</span>
-                      ) : c.feasible ? (
-                        <span className="inline-flex items-center gap-1 text-[#3F5A2E]">
-                          <CheckCircle2 size={13} /> Feasible
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 text-[#95591A]">
-                          <AlertTriangle size={13} /> Exceeds inventory
-                        </span>
-                      )}
+                      <div className="flex flex-col gap-1 items-start">
+                        {c.moistureBlocked ? (
+                          <span className="text-[#95591A]">Blocked by moisture</span>
+                        ) : c.feasible ? (
+                          <span className="inline-flex items-center gap-1 text-[#3F5A2E]">
+                            <CheckCircle2 size={13} /> Feasible
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-[#95591A]">
+                            <AlertTriangle size={13} /> Exceeds inventory
+                          </span>
+                        )}
+
+                        {/* Slagging Risk Warning Flag */}
+                        {(1 - c.xCoconut) >= SLAGGING_RICE_THRESHOLD && (
+                          <span className="inline-flex items-center gap-1 text-[11px] text-[#A1432B] font-medium">
+                            <AlertTriangle size={11} /> High slagging risk ({fmt((1 - c.xCoconut) * 100, 0)}% rice husk)
+                          </span>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );
@@ -977,6 +993,7 @@ function AssumptionsStep({ reservePct }: { reservePct: number }) {
           <AssumptionRow label="Reserve fraction (current)" value={pct(reservePct / 100, 0)} />
           <AssumptionRow label="Moisture penalty applied" value="Yes" />
           <AssumptionRow label="Candidate blend resolution" value="5% steps, 0–100%" />
+          <AssumptionRow label="Slagging risk threshold" value="> 70% Rice Husk share" />
         </div>
       </Card>
 
