@@ -425,7 +425,20 @@ export default function App() {
               View on GitHub
             </a>
           </div>
-          <h1 className="font-display mt-4 text-[34px] sm:text-[44px] leading-[1.05] font-semibold text-[#2B2A1F]">
+
+          {/* Project Branding (Logo + AgriBlend) */}
+          <div className="mt-6 flex items-center gap-3">
+            <img
+              src="/agriblend-logo.svg"
+              alt="AgriBlend Logo"
+              className="h-9 w-auto object-contain"
+            />
+            <span className="font-display text-2xl font-bold tracking-tight text-[#3A3826]">
+              Agri<span className="text-[#889B6C]">blend</span>
+            </span>
+          </div>
+
+          <h1 className="font-display mt-3 text-[34px] sm:text-[44px] leading-[1.05] font-semibold text-[#2B2A1F]">
             Adaptive Biomass Energy Planner
           </h1>
           <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-[#5B5946]">
