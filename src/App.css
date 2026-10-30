@@ -1,18 +1,47 @@
-.counter {
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* ============================================================================
+   AGRIBLEND GLOBAL DESIGN SYSTEM & BRAND TOKENS
+   ============================================================================ */
+
+:root {
+  --agri-cream: #fbf8ef;
+  --agri-green: #707f00;
+  --agri-dark-green: #407031;
+  --agri-lime-accent: #eeff9e;
+  --agri-text: #2b2a1f;
+  --agri-border: #dcd3b8;
+  --agri-shadow: 0 4px 12px rgba(64, 112, 49, 0.08);
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--agri-cream);
+  color: var(--agri-text);
   font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================================
+   COMPONENT STYLES & LAYOUT PRESERVATION
+   ============================================================================ */
+
+.counter {
+  font-size: 17px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: var(--agri-green);
+  background: var(--agri-lime-accent);
   border: 2px solid transparent;
   transition: border-color 0.3s;
   margin-bottom: 24px;
 
   &:hover {
-    border-color: var(--accent-border);
+    border-color: var(--agri-green);
   }
   &:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--agri-green);
     outline-offset: 2px;
   }
 }
@@ -72,7 +101,7 @@
 
 #next-steps {
   display: flex;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--agri-border);
   text-align: left;
 
   & > div {
@@ -85,8 +114,9 @@
 
   .icon {
     margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
+    color: var(--agri-green);
   }
 
   @media (max-width: 1024px) {
@@ -96,11 +126,11 @@
 }
 
 #docs {
-  border-right: 1px solid var(--border);
+  border-right: 1px solid var(--agri-border);
 
   @media (max-width: 1024px) {
     border-right: none;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--agri-border);
   }
 }
 
@@ -116,19 +146,21 @@
   }
 
   a {
-    color: var(--text-h);
+    color: var(--agri-text);
     font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
+    font-weight: 500;
+    border-radius: 8px;
+    background: var(--agri-lime-accent);
     display: flex;
-    padding: 6px 12px;
+    padding: 8px 14px;
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s, background-color 0.3s;
 
     &:hover {
-      box-shadow: var(--shadow);
+      background: #e4f788;
+      box-shadow: var(--agri-shadow);
     }
     .button-icon {
       height: 18px;
@@ -155,7 +187,7 @@
 
 #spacer {
   height: 88px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--agri-border);
   @media (max-width: 1024px) {
     height: 48px;
   }
@@ -175,10 +207,10 @@
 
   &::before {
     left: 0;
-    border-left-color: var(--border);
+    border-left-color: var(--agri-border);
   }
   &::after {
     right: 0;
-    border-right-color: var(--border);
+    border-right-color: var(--agri-border);
   }
 }

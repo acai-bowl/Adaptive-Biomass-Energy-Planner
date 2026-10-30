@@ -298,9 +298,9 @@ function SectionLabel({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center gap-2 text-[#5C6B47] mb-3">
+    <div className="flex items-center gap-2.5 text-[#707f00] mb-3.5">
       <span className="shrink-0">{icon}</span>
-      <h3 className="text-sm font-semibold tracking-wide text-[#3A3826]">{children}</h3>
+      <h3 className="text-base font-bold tracking-wide text-[#2b2a1f]">{children}</h3>
     </div>
   );
 }
@@ -402,20 +402,27 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-[#F2EEDD] text-[#2B2A1F]">
+    <div className="min-h-screen w-full bg-[#fbf8ef] text-[#2B2A1F]">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap');
-        .font-display { font-family: 'Fraunces', ui-serif, Georgia, serif; }
+        .font-display { font-family: 'Outfit', sans-serif; }
       `}</style>
 
       <div className="mx-auto max-w-6xl px-5 sm:px-8 py-8 sm:py-12">
         {/* Header */}
         <header className="mb-10">
-          <div className="flex items-start justify-between gap-4">
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-[#5C6B47]/30 bg-[#5C6B47]/10 px-3 py-1 text-[11px] font-medium text-[#4A5738]">
-              <FlaskConical size={12} />
-              Prototype decision-support model
+          <div className="flex items-center justify-between gap-4">
+            {/* Project Branding (Logo + AgriBlend Badge) */}
+            <div className="inline-flex items-center gap-3 rounded-2xl bg-[#407031] px-5 py-2.5 shadow-md">
+              <img
+                src="/agriblend-logo.svg"
+                alt="AgriBlend Logo"
+                className="h-8 w-auto object-contain shrink-0"
+              />
+              <span className="font-display text-2xl font-bold tracking-tight text-white">
+                Agri<span className="text-[#eeff9e]">Blend</span>
+              </span>
             </div>
+
             <a
               href="https://github.com/acai-bowl/Adaptive-Biomass-Energy-Planner"
               target="_blank"
@@ -426,19 +433,7 @@ export default function App() {
             </a>
           </div>
 
-          {/* Project Branding (Logo + AgriBlend) */}
-          <div className="mt-6 flex items-center gap-3">
-            <img
-              src="/agriblend-logo.svg"
-              alt="AgriBlend Logo"
-              className="h-9 w-auto object-contain"
-            />
-            <span className="font-display text-2xl font-bold tracking-tight text-[#3A3826]">
-              Agri<span className="text-[#889B6C]">blend</span>
-            </span>
-          </div>
-
-          <h1 className="font-display mt-3 text-[34px] sm:text-[44px] leading-[1.05] font-semibold text-[#2B2A1F]">
+          <h1 className="font-display mt-6 text-[34px] sm:text-[44px] leading-[1.05] font-semibold text-[#2B2A1F]">
             Adaptive Biomass Energy Planner
           </h1>
           <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-[#5B5946]">
@@ -456,14 +451,14 @@ export default function App() {
                 <button
                   onClick={() => goTo(s.id)}
                   disabled={!reachable}
-                  className={`flex items-center gap-2 rounded-full px-3.5 py-2 text-sm transition-colors whitespace-nowrap
-                    ${active ? "bg-[#3A3826] text-[#F2EEDD]" : reachable ? "text-[#4A4838] hover:bg-[#E7E0C4]" : "text-[#B7B39A] cursor-not-allowed"}
+                  className={`flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors whitespace-nowrap
+                    ${active ? "bg-[#407031] text-[#eeff9e] shadow-sm" : reachable ? "text-[#2B2A1F] hover:bg-[#eae1be]" : "text-[#B7B39A] cursor-not-allowed"}
                   `}
                 >
                   <span
-                    className={`flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-mono ${
+                    className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-mono font-bold ${
                       active
-                        ? "bg-[#F2EEDD] text-[#3A3826]"
+                        ? "bg-[#eeff9e] text-[#407031]"
                         : "bg-[#DED5B2] text-[#5B5946]"
                     }`}
                   >
@@ -600,10 +595,10 @@ function SetupStep({
       <div className="sm:col-span-2 flex justify-end">
         <button
           onClick={onGenerate}
-          className="inline-flex items-center gap-2 rounded-lg bg-[#3A3826] px-5 py-2.5 text-sm font-medium text-[#F2EEDD] transition-colors hover:bg-[#2B2A1F]"
+          className="inline-flex items-center gap-2 rounded-lg bg-[#407031] px-6 py-3 text-base font-semibold text-[#eeff9e] transition-colors hover:bg-[#707f00] shadow-sm"
         >
           Generate energy plan
-          <ArrowRight size={15} />
+          <ArrowRight size={16} />
         </button>
       </div>
     </div>
@@ -673,12 +668,12 @@ function ResultsStep({
       <Card className="p-6 sm:p-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
           {feasible ? (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#5C6B47]/15 px-3 py-1 text-xs font-semibold text-[#3F5A2E]">
-              <CheckCircle2 size={14} /> FEASIBLE
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#707f00]/15 px-3.5 py-1.5 text-xs font-bold text-[#407031]">
+              <CheckCircle2 size={15} /> FEASIBLE
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C77D2B]/15 px-3 py-1 text-xs font-semibold text-[#95591A]">
-              <AlertTriangle size={14} /> INSUFFICIENT INVENTORY
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C77D2B]/15 px-3.5 py-1.5 text-xs font-bold text-[#95591A]">
+              <AlertTriangle size={15} /> INSUFFICIENT INVENTORY
             </span>
           )}
           <span className="text-xs text-[#8A886E]">
@@ -928,7 +923,7 @@ function AnalysisStep({ result, inputs }: { result: OptimizationResult; inputs: 
                       {fmt(c.xCoconut * 100, 0)}% coconut / {fmt((1 - c.xCoconut) * 100, 0)}%
                       rice
                       {isRecommended && (
-                        <span className="ml-2 rounded-full bg-[#5C6B47] px-2 py-0.5 text-[10px] font-sans text-white">
+                        <span className="ml-2 rounded-full bg-[#407031] px-2.5 py-1 text-xs font-sans font-bold text-[#eeff9e]">
                           recommended
                         </span>
                       )}
@@ -1014,8 +1009,7 @@ function AssumptionsStep({ reservePct }: { reservePct: number }) {
         <div className="flex items-start gap-2.5">
           <Info size={16} className="mt-0.5 shrink-0 text-[#8A5A17]" />
           <p className="text-[13px] leading-relaxed text-[#6B5734]">
-            Prototype estimate based on literature baseline parameters. Experimental
-            validation required before physical deployment.
+            Prototype estimate based on literature baseline parameters.
           </p>
         </div>
       </Card>
