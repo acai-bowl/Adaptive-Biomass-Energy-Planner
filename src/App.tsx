@@ -10,7 +10,6 @@ import {
   Info,
   ChevronRight,
   Gauge,
-  FlaskConical,
   ClipboardList,
   ArrowRight,
   Sprout,
